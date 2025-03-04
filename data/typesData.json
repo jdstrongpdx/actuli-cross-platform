@@ -1,0 +1,1296 @@
+{
+  "states": {
+    "id": "f1d96622-f293-4d12-be4b-ad65fccde554",
+    "name": "states",
+    "description": "A list of States in the United States",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Alabama"
+      },
+      {
+        "id": 2,
+        "value": "Alaska"
+      },
+      {
+        "id": 3,
+        "value": "Arizona"
+      },
+      {
+        "id": 4,
+        "value": "Arkansas"
+      },
+      {
+        "id": 5,
+        "value": "California"
+      },
+      {
+        "id": 6,
+        "value": "Colorado"
+      },
+      {
+        "id": 7,
+        "value": "Connecticut"
+      },
+      {
+        "id": 8,
+        "value": "Delaware"
+      },
+      {
+        "id": 9,
+        "value": "Florida"
+      },
+      {
+        "id": 10,
+        "value": "Georgia"
+      },
+      {
+        "id": 11,
+        "value": "Hawaii"
+      },
+      {
+        "id": 12,
+        "value": "Idaho"
+      },
+      {
+        "id": 13,
+        "value": "Illinois"
+      },
+      {
+        "id": 14,
+        "value": "Indiana"
+      },
+      {
+        "id": 15,
+        "value": "Iowa"
+      },
+      {
+        "id": 16,
+        "value": "Kansas"
+      },
+      {
+        "id": 17,
+        "value": "Kentucky"
+      },
+      {
+        "id": 18,
+        "value": "Louisiana"
+      },
+      {
+        "id": 19,
+        "value": "Maine"
+      },
+      {
+        "id": 20,
+        "value": "Maryland"
+      },
+      {
+        "id": 21,
+        "value": "Massachusetts"
+      },
+      {
+        "id": 22,
+        "value": "Michigan"
+      },
+      {
+        "id": 23,
+        "value": "Minnesota"
+      },
+      {
+        "id": 24,
+        "value": "Mississippi"
+      },
+      {
+        "id": 25,
+        "value": "Missouri"
+      },
+      {
+        "id": 26,
+        "value": "Montana"
+      },
+      {
+        "id": 27,
+        "value": "Nebraska"
+      },
+      {
+        "id": 28,
+        "value": "Nevada"
+      },
+      {
+        "id": 29,
+        "value": "New Hampshire"
+      },
+      {
+        "id": 30,
+        "value": "New Jersey"
+      },
+      {
+        "id": 31,
+        "value": "New Mexico"
+      },
+      {
+        "id": 32,
+        "value": "New York"
+      },
+      {
+        "id": 33,
+        "value": "North Carolina"
+      },
+      {
+        "id": 34,
+        "value": "North Dakota"
+      },
+      {
+        "id": 35,
+        "value": "Ohio"
+      },
+      {
+        "id": 36,
+        "value": "Oklahoma"
+      },
+      {
+        "id": 37,
+        "value": "Oregon"
+      },
+      {
+        "id": 38,
+        "value": "Pennsylvania"
+      },
+      {
+        "id": 39,
+        "value": "Rhode Island"
+      },
+      {
+        "id": 40,
+        "value": "South Carolina"
+      },
+      {
+        "id": 41,
+        "value": "South Dakota"
+      },
+      {
+        "id": 42,
+        "value": "Tennessee"
+      },
+      {
+        "id": 43,
+        "value": "Texas"
+      },
+      {
+        "id": 44,
+        "value": "Utah"
+      },
+      {
+        "id": 45,
+        "value": "Vermont"
+      },
+      {
+        "id": 46,
+        "value": "Virginia"
+      },
+      {
+        "id": 47,
+        "value": "Washington"
+      },
+      {
+        "id": 48,
+        "value": "West Virginia"
+      },
+      {
+        "id": 49,
+        "value": "Wisconsin"
+      },
+      {
+        "id": 50,
+        "value": "Wyoming"
+      }
+    ],
+    "lastUpdated": "2025-02-18T17:13:43.271907Z",
+    "_rid": "rwlCAKg+oRYEAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYEAAAAAAAAAA==/",
+    "_etag": "\"1f00e0cb-0000-0800-0000-67b4f4400000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739912256
+  },
+  "countries": {
+    "id": "42a0730c-b67e-451a-b1e0-1c1ce09f4047",
+    "name": "countries",
+    "description": "A list of countries",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Afghanistan"
+      },
+      {
+        "id": 2,
+        "value": "Albania"
+      },
+      {
+        "id": 3,
+        "value": "Algeria"
+      },
+      {
+        "id": 4,
+        "value": "Andorra"
+      },
+      {
+        "id": 5,
+        "value": "Angola"
+      },
+      {
+        "id": 6,
+        "value": "Antigua and Barbuda"
+      },
+      {
+        "id": 7,
+        "value": "Argentina"
+      },
+      {
+        "id": 8,
+        "value": "Armenia"
+      },
+      {
+        "id": 9,
+        "value": "Australia"
+      },
+      {
+        "id": 10,
+        "value": "Austria"
+      },
+      {
+        "id": 11,
+        "value": "Azerbaijan"
+      },
+      {
+        "id": 12,
+        "value": "Bahamas"
+      },
+      {
+        "id": 13,
+        "value": "Bahrain"
+      },
+      {
+        "id": 14,
+        "value": "Bangladesh"
+      },
+      {
+        "id": 15,
+        "value": "Barbados"
+      },
+      {
+        "id": 16,
+        "value": "Belarus"
+      },
+      {
+        "id": 17,
+        "value": "Belgium"
+      },
+      {
+        "id": 18,
+        "value": "Belize"
+      },
+      {
+        "id": 19,
+        "value": "Benin"
+      },
+      {
+        "id": 20,
+        "value": "Bhutan"
+      },
+      {
+        "id": 21,
+        "value": "Bolivia"
+      },
+      {
+        "id": 22,
+        "value": "Bosnia and Herzegovina"
+      },
+      {
+        "id": 23,
+        "value": "Botswana"
+      },
+      {
+        "id": 24,
+        "value": "Brazil"
+      },
+      {
+        "id": 25,
+        "value": "Brunei"
+      },
+      {
+        "id": 26,
+        "value": "Bulgaria"
+      },
+      {
+        "id": 27,
+        "value": "Burkina Faso"
+      },
+      {
+        "id": 28,
+        "value": "Burundi"
+      },
+      {
+        "id": 29,
+        "value": "Cabo Verde"
+      },
+      {
+        "id": 30,
+        "value": "Cambodia"
+      },
+      {
+        "id": 31,
+        "value": "Cameroon"
+      },
+      {
+        "id": 32,
+        "value": "Canada"
+      },
+      {
+        "id": 33,
+        "value": "Central African Republic"
+      },
+      {
+        "id": 34,
+        "value": "Chad"
+      },
+      {
+        "id": 35,
+        "value": "Chile"
+      },
+      {
+        "id": 36,
+        "value": "China"
+      },
+      {
+        "id": 37,
+        "value": "Colombia"
+      },
+      {
+        "id": 38,
+        "value": "Comoros"
+      },
+      {
+        "id": 39,
+        "value": "Congo, Democratic Republic of the"
+      },
+      {
+        "id": 40,
+        "value": "Congo, Republic of the"
+      },
+      {
+        "id": 41,
+        "value": "Costa Rica"
+      },
+      {
+        "id": 42,
+        "value": "Croatia"
+      },
+      {
+        "id": 43,
+        "value": "Cuba"
+      },
+      {
+        "id": 44,
+        "value": "Cyprus"
+      },
+      {
+        "id": 45,
+        "value": "Czech Republic"
+      },
+      {
+        "id": 46,
+        "value": "Denmark"
+      },
+      {
+        "id": 47,
+        "value": "Djibouti"
+      },
+      {
+        "id": 48,
+        "value": "Dominica"
+      },
+      {
+        "id": 49,
+        "value": "Dominican Republic"
+      },
+      {
+        "id": 50,
+        "value": "Ecuador"
+      },
+      {
+        "id": 51,
+        "value": "Egypt"
+      },
+      {
+        "id": 52,
+        "value": "El Salvador"
+      },
+      {
+        "id": 53,
+        "value": "Equatorial Guinea"
+      },
+      {
+        "id": 54,
+        "value": "Eritrea"
+      },
+      {
+        "id": 55,
+        "value": "Estonia"
+      },
+      {
+        "id": 56,
+        "value": "Eswatini"
+      },
+      {
+        "id": 57,
+        "value": "Ethiopia"
+      },
+      {
+        "id": 58,
+        "value": "Fiji"
+      },
+      {
+        "id": 59,
+        "value": "Finland"
+      },
+      {
+        "id": 60,
+        "value": "France"
+      },
+      {
+        "id": 61,
+        "value": "Gabon"
+      },
+      {
+        "id": 62,
+        "value": "Gambia"
+      },
+      {
+        "id": 63,
+        "value": "Georgia"
+      },
+      {
+        "id": 64,
+        "value": "Germany"
+      },
+      {
+        "id": 65,
+        "value": "Ghana"
+      },
+      {
+        "id": 66,
+        "value": "Greece"
+      },
+      {
+        "id": 67,
+        "value": "Grenada"
+      },
+      {
+        "id": 68,
+        "value": "Guatemala"
+      },
+      {
+        "id": 69,
+        "value": "Guinea"
+      },
+      {
+        "id": 70,
+        "value": "Guinea-Bissau"
+      },
+      {
+        "id": 71,
+        "value": "Guyana"
+      },
+      {
+        "id": 72,
+        "value": "Haiti"
+      },
+      {
+        "id": 73,
+        "value": "Honduras"
+      },
+      {
+        "id": 74,
+        "value": "Hungary"
+      },
+      {
+        "id": 75,
+        "value": "Iceland"
+      },
+      {
+        "id": 76,
+        "value": "India"
+      },
+      {
+        "id": 77,
+        "value": "Indonesia"
+      },
+      {
+        "id": 78,
+        "value": "Iran"
+      },
+      {
+        "id": 79,
+        "value": "Iraq"
+      },
+      {
+        "id": 80,
+        "value": "Ireland"
+      },
+      {
+        "id": 81,
+        "value": "Israel"
+      },
+      {
+        "id": 82,
+        "value": "Italy"
+      },
+      {
+        "id": 83,
+        "value": "Jamaica"
+      },
+      {
+        "id": 84,
+        "value": "Japan"
+      },
+      {
+        "id": 85,
+        "value": "Jordan"
+      },
+      {
+        "id": 86,
+        "value": "Kazakhstan"
+      },
+      {
+        "id": 87,
+        "value": "Kenya"
+      },
+      {
+        "id": 88,
+        "value": "Kiribati"
+      },
+      {
+        "id": 89,
+        "value": "Korea, North"
+      },
+      {
+        "id": 90,
+        "value": "Korea, South"
+      },
+      {
+        "id": 91,
+        "value": "Kosovo"
+      },
+      {
+        "id": 92,
+        "value": "Kuwait"
+      },
+      {
+        "id": 93,
+        "value": "Kyrgyzstan"
+      },
+      {
+        "id": 94,
+        "value": "Laos"
+      },
+      {
+        "id": 95,
+        "value": "Latvia"
+      },
+      {
+        "id": 96,
+        "value": "Lebanon"
+      },
+      {
+        "id": 97,
+        "value": "Lesotho"
+      },
+      {
+        "id": 98,
+        "value": "Liberia"
+      },
+      {
+        "id": 99,
+        "value": "Libya"
+      },
+      {
+        "id": 100,
+        "value": "Liechtenstein"
+      },
+      {
+        "id": 101,
+        "value": "Lithuania"
+      },
+      {
+        "id": 102,
+        "value": "Luxembourg"
+      },
+      {
+        "id": 103,
+        "value": "Madagascar"
+      },
+      {
+        "id": 104,
+        "value": "Malawi"
+      },
+      {
+        "id": 105,
+        "value": "Malaysia"
+      },
+      {
+        "id": 106,
+        "value": "Maldives"
+      },
+      {
+        "id": 107,
+        "value": "Mali"
+      },
+      {
+        "id": 108,
+        "value": "Malta"
+      },
+      {
+        "id": 109,
+        "value": "Marshall Islands"
+      },
+      {
+        "id": 110,
+        "value": "Mauritania"
+      },
+      {
+        "id": 111,
+        "value": "Mauritius"
+      },
+      {
+        "id": 112,
+        "value": "Mexico"
+      },
+      {
+        "id": 113,
+        "value": "Micronesia"
+      },
+      {
+        "id": 114,
+        "value": "Moldova"
+      },
+      {
+        "id": 115,
+        "value": "Monaco"
+      },
+      {
+        "id": 116,
+        "value": "Mongolia"
+      },
+      {
+        "id": 117,
+        "value": "Montenegro"
+      },
+      {
+        "id": 118,
+        "value": "Morocco"
+      },
+      {
+        "id": 119,
+        "value": "Mozambique"
+      },
+      {
+        "id": 120,
+        "value": "Myanmar (Burma)"
+      },
+      {
+        "id": 121,
+        "value": "Namibia"
+      },
+      {
+        "id": 122,
+        "value": "Nauru"
+      },
+      {
+        "id": 123,
+        "value": "Nepal"
+      },
+      {
+        "id": 124,
+        "value": "Netherlands"
+      },
+      {
+        "id": 125,
+        "value": "New Zealand"
+      },
+      {
+        "id": 126,
+        "value": "Nicaragua"
+      },
+      {
+        "id": 127,
+        "value": "Niger"
+      },
+      {
+        "id": 128,
+        "value": "Nigeria"
+      },
+      {
+        "id": 129,
+        "value": "North Macedonia"
+      },
+      {
+        "id": 130,
+        "value": "Norway"
+      },
+      {
+        "id": 131,
+        "value": "Oman"
+      },
+      {
+        "id": 132,
+        "value": "Pakistan"
+      },
+      {
+        "id": 133,
+        "value": "Palau"
+      },
+      {
+        "id": 134,
+        "value": "Palestine"
+      },
+      {
+        "id": 135,
+        "value": "Panama"
+      },
+      {
+        "id": 136,
+        "value": "Papua New Guinea"
+      },
+      {
+        "id": 137,
+        "value": "Paraguay"
+      },
+      {
+        "id": 138,
+        "value": "Peru"
+      },
+      {
+        "id": 139,
+        "value": "Philippines"
+      },
+      {
+        "id": 140,
+        "value": "Poland"
+      },
+      {
+        "id": 141,
+        "value": "Portugal"
+      },
+      {
+        "id": 142,
+        "value": "Qatar"
+      },
+      {
+        "id": 143,
+        "value": "Romania"
+      },
+      {
+        "id": 144,
+        "value": "Russia"
+      },
+      {
+        "id": 145,
+        "value": "Rwanda"
+      },
+      {
+        "id": 146,
+        "value": "Saint Kitts and Nevis"
+      },
+      {
+        "id": 147,
+        "value": "Saint Lucia"
+      },
+      {
+        "id": 148,
+        "value": "Saint Vincent and the Grenadines"
+      },
+      {
+        "id": 149,
+        "value": "Samoa"
+      },
+      {
+        "id": 150,
+        "value": "San Marino"
+      },
+      {
+        "id": 151,
+        "value": "Sao Tome and Principe"
+      },
+      {
+        "id": 152,
+        "value": "Saudi Arabia"
+      },
+      {
+        "id": 153,
+        "value": "Senegal"
+      },
+      {
+        "id": 154,
+        "value": "Serbia"
+      },
+      {
+        "id": 155,
+        "value": "Seychelles"
+      },
+      {
+        "id": 156,
+        "value": "Sierra Leone"
+      },
+      {
+        "id": 157,
+        "value": "Singapore"
+      },
+      {
+        "id": 158,
+        "value": "Slovakia"
+      },
+      {
+        "id": 159,
+        "value": "Slovenia"
+      },
+      {
+        "id": 160,
+        "value": "Solomon Islands"
+      },
+      {
+        "id": 161,
+        "value": "Somalia"
+      },
+      {
+        "id": 162,
+        "value": "South Africa"
+      },
+      {
+        "id": 163,
+        "value": "South Sudan"
+      },
+      {
+        "id": 164,
+        "value": "Spain"
+      },
+      {
+        "id": 165,
+        "value": "Sri Lanka"
+      },
+      {
+        "id": 166,
+        "value": "Sudan"
+      },
+      {
+        "id": 167,
+        "value": "Suriname"
+      },
+      {
+        "id": 168,
+        "value": "Sweden"
+      },
+      {
+        "id": 169,
+        "value": "Switzerland"
+      },
+      {
+        "id": 170,
+        "value": "Syria"
+      },
+      {
+        "id": 171,
+        "value": "Taiwan"
+      },
+      {
+        "id": 172,
+        "value": "Tajikistan"
+      },
+      {
+        "id": 173,
+        "value": "Tanzania"
+      },
+      {
+        "id": 174,
+        "value": "Thailand"
+      },
+      {
+        "id": 175,
+        "value": "Timor-Leste"
+      },
+      {
+        "id": 176,
+        "value": "Togo"
+      },
+      {
+        "id": 177,
+        "value": "Tonga"
+      },
+      {
+        "id": 178,
+        "value": "Trinidad and Tobago"
+      },
+      {
+        "id": 179,
+        "value": "Tunisia"
+      },
+      {
+        "id": 180,
+        "value": "Turkey"
+      },
+      {
+        "id": 181,
+        "value": "Turkmenistan"
+      },
+      {
+        "id": 182,
+        "value": "Tuvalu"
+      },
+      {
+        "id": 183,
+        "value": "Uganda"
+      },
+      {
+        "id": 184,
+        "value": "Ukraine"
+      },
+      {
+        "id": 185,
+        "value": "United Arab Emirates"
+      },
+      {
+        "id": 186,
+        "value": "United Kingdom"
+      },
+      {
+        "id": 187,
+        "value": "United States"
+      },
+      {
+        "id": 188,
+        "value": "Uruguay"
+      },
+      {
+        "id": 189,
+        "value": "Uzbekistan"
+      },
+      {
+        "id": 190,
+        "value": "Vanuatu"
+      },
+      {
+        "id": 191,
+        "value": "Vatican City"
+      },
+      {
+        "id": 192,
+        "value": "Venezuela"
+      },
+      {
+        "id": 193,
+        "value": "Vietnam"
+      },
+      {
+        "id": 194,
+        "value": "Yemen"
+      },
+      {
+        "id": 195,
+        "value": "Zambia"
+      },
+      {
+        "id": 196,
+        "value": "Zimbabwe"
+      }
+    ],
+    "lastUpdated": "2025-02-18T22:28:22.114Z",
+    "_rid": "rwlCAKg+oRYMAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYMAAAAAAAAAA==/",
+    "_etag": "\"20004b7a-0000-0800-0000-67b509f90000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739917817
+  },
+  "genders": {
+    "id": "2c4e3adb-a95a-4256-bd6b-a913e812412a",
+    "name": "genders",
+    "description": "string",
+    "version": 0,
+    "data": [
+      {
+        "id": 0,
+        "value": "string"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYFAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYFAAAAAAAAAA==/",
+    "_etag": "\"1f00f1cb-0000-0800-0000-67b4f4440000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739912260
+  },
+  "threeLevelList": {
+    "id": "bfe39aa0-34d5-4c96-9aec-aed7220360e2",
+    "name": "threeLevelList",
+    "description": "A three level category list",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "High"
+      },
+      {
+        "id": 2,
+        "value": "Moderate"
+      },
+      {
+        "id": 3,
+        "value": "Low"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYGAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYGAAAAAAAAAA==/",
+    "_etag": "\"20008169-0000-0800-0000-67b507a80000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739917224
+  },
+  "fiveLevelList": {
+    "id": "ee9f7444-674d-4f14-b299-1b72c37e145d",
+    "name": "fiveLevelList",
+    "description": "A five level category list",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Critical"
+      },
+      {
+        "id": 2,
+        "value": "High"
+      },
+      {
+        "id": 3,
+        "value": "Moderate"
+      },
+      {
+        "id": 4,
+        "value": "Low"
+      },
+      {
+        "id": 5,
+        "value": "Trivial"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYHAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYHAAAAAAAAAA==/",
+    "_etag": "\"2000c86a-0000-0800-0000-67b507c10000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739917249
+  },
+  "sevenLevelList": {
+    "id": "024831f2-8c9c-44a2-853f-6c3b0cbf609f",
+    "name": "sevenLevelList",
+    "description": "A seven level category list",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Critical"
+      },
+      {
+        "id": 2,
+        "value": "Significant"
+      },
+      {
+        "id": 3,
+        "value": "High"
+      },
+      {
+        "id": 4,
+        "value": "Normal"
+      },
+      {
+        "id": 5,
+        "value": "Moderate"
+      },
+      {
+        "id": 6,
+        "value": "Minor"
+      },
+      {
+        "id": 7,
+        "value": "Trivial"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYIAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYIAAAAAAAAAA==/",
+    "_etag": "\"2000816b-0000-0800-0000-67b507de0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739917278
+  },
+  "educationDegreeList": {
+    "id": "d672cd61-105d-4303-a012-03b5dc0ae224",
+    "name": "educationDegreeList",
+    "description": "A list of education degrees, certifications, certificates, and trainings.",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "High School Diploma"
+      },
+      {
+        "id": 2,
+        "value": "Associate Degree"
+      },
+      {
+        "id": 3,
+        "value": "Bachelor's Degree"
+      },
+      {
+        "id": 4,
+        "value": "Master's Degree"
+      },
+      {
+        "id": 5,
+        "value": "Doctorate Degree"
+      },
+      {
+        "id": 6,
+        "value": "Professional Degree"
+      },
+      {
+        "id": 7,
+        "value": "Postgraduate Diploma"
+      },
+      {
+        "id": 8,
+        "value": "Advanced Diploma"
+      },
+      {
+        "id": 9,
+        "value": "Professional Certification"
+      },
+      {
+        "id": 10,
+        "value": "Certificate"
+      },
+      {
+        "id": 11,
+        "value": "Course"
+      },
+      {
+        "id": 12,
+        "value": "Specialization"
+      },
+      {
+        "id": 13,
+        "value": "Continuing Education"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYJAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYJAAAAAAAAAA==/",
+    "_etag": "\"1f0024f4-0000-0800-0000-67b4f9850000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739913605
+  },
+  "educationStatusList": {
+    "id": "0f8560db-ee00-4e3e-81ef-7470ca169b4b",
+    "name": "educationStatusList",
+    "description": "A list of enrollment statuses for education.",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Enrolled"
+      },
+      {
+        "id": 2,
+        "value": "Completed"
+      },
+      {
+        "id": 3,
+        "value": "Graduated"
+      },
+      {
+        "id": 4,
+        "value": "Dropped Out"
+      },
+      {
+        "id": 5,
+        "value": "On Hold"
+      },
+      {
+        "id": 6,
+        "value": "Withdrawn"
+      },
+      {
+        "id": 7,
+        "value": "Incomplete"
+      },
+      {
+        "id": 8,
+        "value": "Probation"
+      },
+      {
+        "id": 9,
+        "value": "Expelled"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYKAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYKAAAAAAAAAA==/",
+    "_etag": "\"1f0044d8-0000-0800-0000-67b4f5ac0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739912620
+  },
+  "educationGradeScaleList": {
+    "id": "cbfdf218-9d29-4990-b4e5-d215764d0299",
+    "name": "educationGradeScaleList",
+    "description": "A list of grade scales for education.",
+    "version": 0,
+    "data": [
+      {
+        "id": 1,
+        "value": "Cumulative GPA"
+      },
+      {
+        "id": 2,
+        "value": "Percentage"
+      },
+      {
+        "id": 3,
+        "value": "Letter Grade"
+      },
+      {
+        "id": 4,
+        "value": "Pass/Fail"
+      },
+      {
+        "id": 5,
+        "value": "Rank"
+      },
+      {
+        "id": 6,
+        "value": "Weighted GPA"
+      },
+      {
+        "id": 7,
+        "value": "Unweighted GPA"
+      },
+      {
+        "id": 8,
+        "value": "Grade Descriptor (e.g., Excellent, Good)"
+      }
+    ],
+    "lastUpdated": "2025-02-18T16:46:56.92Z",
+    "_rid": "rwlCAKg+oRYLAAAAAAAAAA==",
+    "_self": "dbs/rwlCAA==/colls/rwlCAKg+oRY=/docs/rwlCAKg+oRYLAAAAAAAAAA==/",
+    "_etag": "\"1f004bdd-0000-0800-0000-67b4f67a0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1739912826
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "d2173a0e-1111-1111-1111-37f11dc07eb1",
+  "username": null,
+  "name": null,
+  "profile": {
+    "contact": {
+      "email": "testuser@email.com",
+      "firstName": "Test",
+      "lastName": "User",
+      "address1": "12345 Street Number",
+      "address2": null,
+      "city": "Somewhere",
+      "state": "Oregon",
+      "postalCode": "97223",
+      "country": "United States",
+      "address": "12345 Street Number\nSomewhere, Oregon 97223\nUnited States",
+      "dateOfBirth": "1980-01-01T00:00:00",
+      "age": 45,
+      "homePhone": null,
+      "mobilePhone": "1111111111",
+      "website": "https://www.website.com"
+    },
+    "educationList": [
+      {
+        "School": "Generic College",
+        "DegreeType": "Bachelor's Degree",
+        "DegreeName": "Computer Science",
+        "City": null,
+        "State": null,
+        "Country": null,
+        "Status": "Graduated",
+        "CompletionDate": null,
+        "Grade": null,
+        "GradeScale": null,
+        "Description": null,
+        "Importance": null
+      }
+    ],
+    "workList": [],
+    "relationshipList": [],
+    "identity": {
+      "Gender": null,
+      "Sexuality": null,
+      "RelationshipStatus": null,
+      "Nationality": null,
+      "CoreValues": null,
+      "TechnologicalLiteracy": null,
+      "PoliticalValues": null
+    },
+    "religionsList": [],
+    "travelsList": [],
+    "health": {
+      "HealthName": null
+    },
+    "activitiesList": [],
+    "givingList": [],
+    "finances": {
+      "FinancialName": null,
+      "HousingSituation": null
+    }
+  },
+  "overview": {
+    "location": null,
+    "education": null,
+    "work": null,
+    "relationships": null,
+    "identity": null,
+    "religion": null,
+    "travel": null,
+    "health": null,
+    "hobbies": null,
+    "giving": null,
+    "finances": null,
+    "housing": null,
+    "goals": null,
+    "achievements": null,
+    "summary": null
+  },
+  "goals": [],
+  "accomplishments": [],
+  "createdAt": "2025-02-21T01:16:13.564464Z",
+  "modifiedAt": "2025-02-21T01:16:13.56452Z",
+  "_rid": "rwlCAJ54GTMIAAAAAAAAAA==",
+  "_self": "dbs/rwlCAA==/colls/rwlCAJ54GTM=/docs/rwlCAJ54GTMIAAAAAAAAAA==/",
+  "_etag": "\"5900a20e-0000-0800-0000-67b7d3dd0000\"",
+  "_attachments": "attachments/",
+  "_ts": 1740100573
+}

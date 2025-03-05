@@ -22,8 +22,22 @@
     },
     "educationList": [
       {
-        "School": "Generic College",
+        "School": "Generic College 1",
         "DegreeType": "Bachelor's Degree",
+        "DegreeName": "Computer Science",
+        "City": null,
+        "State": null,
+        "Country": null,
+        "Status": "Graduated",
+        "CompletionDate": null,
+        "Grade": null,
+        "GradeScale": null,
+        "Description": null,
+        "Importance": null
+      },
+      {
+        "School": "Generic College 2",
+        "DegreeType": "Masters's Degree",
         "DegreeName": "Computer Science",
         "City": null,
         "State": null,
@@ -80,9 +94,4 @@
   "accomplishments": [],
   "createdAt": "2025-02-21T01:16:13.564464Z",
   "modifiedAt": "2025-02-21T01:16:13.56452Z",
-  "_rid": "rwlCAJ54GTMIAAAAAAAAAA==",
-  "_self": "dbs/rwlCAA==/colls/rwlCAJ54GTM=/docs/rwlCAJ54GTMIAAAAAAAAAA==/",
-  "_etag": "\"5900a20e-0000-0800-0000-67b7d3dd0000\"",
-  "_attachments": "attachments/",
-  "_ts": 1740100573
 }

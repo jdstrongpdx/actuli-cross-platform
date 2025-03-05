@@ -1,9 +1,6 @@
 import { Text } from 'react-native';
 import { Redirect, Slot } from 'expo-router';
-
 import { useSession } from '@/contexts/AuthContext';
-import { AppUserContextProvider } from '@/contexts/AppUserContext';
-import { TypeDataContextProvider } from "@/contexts/TypeDataContext";
 import { Platform } from 'react-native';
 import { Tabs } from 'expo-router';
 import { Colors } from "@/constants/Colors";
@@ -32,7 +29,6 @@ export default function TabsLayout() {
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-                headerShown: false,
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
                 tabBarStyle: Platform.select({

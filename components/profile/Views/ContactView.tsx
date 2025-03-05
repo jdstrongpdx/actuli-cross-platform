@@ -1,69 +1,67 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking, ActivityIndicator } from 'react-native';
 import AppUser from "@/interfaces/AppUser";
+import {ThemedView} from "@/components/ThemedView";
+import {ThemedText} from "@/components/ThemedText";
+import { ExternalLink } from '@/components/ExternalLink';
 
 const ContactView: React.FC<{ userData: AppUser }> = ({ userData }) => {
     if (!userData.profile.contact) {
         return (
-            <View style={styles.loadingContainer}>
+            <ThemedView style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#6200ee" />
-            </View>
+            </ThemedView>
         );
     }
 
     const { contact } = userData.profile;
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>
-                <Text style={styles.label}>Name: </Text>
+        <ThemedView style={styles.container}>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Name: </ThemedText>
                 {`${contact.firstName || ''} ${contact.lastName || ''}`}
-            </Text>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Address: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Address: </ThemedText>
                 {contact.address || ''}
-            </Text>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Email: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Email: </ThemedText>
                 {contact.email || ''}
-            </Text>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Mobile Phone Number: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Mobile Phone Number: </ThemedText>
                 {contact.mobilePhone || ''}
-            </Text>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Home Phone Number: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Home Phone Number: </ThemedText>
                 {contact.homePhone || ''}
-            </Text>
+            </ThemedText>
 
-            {contact.website ? (
-                <Text style={styles.text}>
-                    <Text style={styles.label}>Website: </Text>
-                    <Text
-                        style={styles.link}
-                        onPress={() => Linking.openURL(contact.website)}
-                    >
-                        {contact.website}
-                    </Text>
-                </Text>
-            ) : null}
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Website: </ThemedText>
+                <ExternalLink href={contact.website} style={styles.link}>
+                    {contact.website}
+                </ExternalLink>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Date of Birth: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Date of Birth: </ThemedText>
                 {contact.dateOfBirth
                     ? new Date(contact.dateOfBirth).toLocaleDateString()
                     : ''}
-            </Text>
+            </ThemedText>
 
-            <Text style={styles.text}>
-                <Text style={styles.label}>Age: </Text>
+            <ThemedText style={styles.text}>
+                <ThemedText style={styles.label}>Age: </ThemedText>
                 {contact.age || ''}
-            </Text>
-        </View>
+            </ThemedText>
+        </ThemedView>
     );
 };
 

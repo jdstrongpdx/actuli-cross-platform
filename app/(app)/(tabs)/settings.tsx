@@ -3,8 +3,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import React from "react";
+import {useAppUser} from "@/contexts/AppUserContext";
 
 export default function SettingsPage() {
+    const { user, clearUser } = useAppUser(); // Access the user and actions from the context
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Hero Section */}
@@ -15,16 +19,14 @@ export default function SettingsPage() {
                 />
             </ThemedView>
 
-            {/* Title */}
-            <ThemedText type="title" style={styles.title}>
-                Settings Page
-            </ThemedText>
-
-            {/* Page Text */}
-            <ThemedText style={styles.pageText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                vehicula, erat eget accumsan vehicula, sapien ipsum dictum dolor, id
-                auctor mi lorem at magna.
+            {/* Logout Button */}
+            <ThemedText
+                style={styles.logoutButton}
+                onPress={() => {
+                    clearUser(); // Clear user data on logout
+                }}
+            >
+                Logout
             </ThemedText>
         </SafeAreaView>
     );
@@ -57,5 +59,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         textAlign: 'center',
+    },
+    logoutButton: {
+        textAlign: 'center',
+        marginTop: 16,
+        fontSize: 16,
+        color: 'red',
     },
 });

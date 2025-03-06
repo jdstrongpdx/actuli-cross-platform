@@ -1,21 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {Form, Button, Col} from "react-bootstrap";
-import AppUser, {Education} from "../../../../interfaces/AppUser";
-import {ApiRoutes} from "../../../../config/apiRoutes";
-import {useTypes} from "../../../../contexts/TypesContext";
-import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View, Alert } from "react-native";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import {useFormik} from "formik";
-import SelectField from "../../form/SelectField";
-import DateField from "../../form/DateField";
-import TextField from "../../form/TextField";
-import Verify from "../../form/Verify";
+import AppUser, { Education } from "@/interfaces/AppUser";
+import { useAppUser } from "@/contexts/AppUserContext";
+import { produce } from "immer";
+import TextInputField from "@/components/form/TextInputField";
+import DateInputField from "@/components/form/DateInputField";
+import { Button, Text } from "@rneui/themed";
+import SelectInputField from "@/components/form/SelectInputField";
+import {useTypeData} from "@/contexts/TypeDataContext";
 
 interface EducationForm2Props {
-    userData: AppUser | null,
-    error: Error | null,
-    updateUser: (route: string, data: Partial<AppUser>) => Promise<void>,
+    userData: AppUser | null;
+    onComplete: () => void;
 }
 
 const initialValues: Education = {
@@ -34,223 +32,173 @@ const initialValues: Education = {
     importance: "",
 };
 
-const EducationForm2: React.FC<EducationForm2Props> = ({ userData, error, updateUser }) => {
-    const [educationList, setEducationList] = useState<Education[]>([])
-    const [listIndex, setListIndex] = useState(0);
-    const [newFlag, setNewFlag] = useState<boolean>(false);
-    const {typesData} = useTypes();
-    const navigate = useNavigate();
+const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete }) => {
+    const { saveUser } = useAppUser();
+    const { typeData } = useTypeData();
+    const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     const ValidationSchema = () =>
         Yup.object().shape({
-            school: Yup.string().required('School Name is required.'),
-            degreeType: Yup.string().required('Degree Type is required.'),
-            degreeName: Yup.string().required('Degree Name is required.'),
-            city: Yup.string().optional().nullable(),
-            state: Yup.string().optional().nullable(),
-            country: Yup.string().optional().nullable(),
-            location: Yup.string().optional().nullable(),
-            status: Yup.string().required('Status is required.'),
-            completionDate: Yup.date().required('Completion or Estimated Completion date is required'),
-            grade: Yup.string().optional().nullable(),
-            gradeScale: Yup.string().optional().nullable(),
-            description: Yup.string().optional().nullable(),
-            importance: Yup.string().optional().nullable(),
+            school: Yup.string().required("School name is required."),
+            degreeType: Yup.string().required("Degree type is required."),
+            degreeName: Yup.string().optional(),
+            city: Yup.string().optional(),
+            state: Yup.string().optional(),
+            country: Yup.string().optional(),
+            location: Yup.string().optional(),
+            status: Yup.string().optional(),
+            completionDate: Yup.date()
+                .optional()
+                .nullable()
+                .max(new Date(), "Completion date cannot be in the future."),
+            grade: Yup.string().optional(),
+            gradeScale: Yup.string().optional(),
+            description: Yup.string().optional(),
+            importance: Yup.string().optional(),
         });
 
     const formik = useFormik({
         initialValues,
         validationSchema: ValidationSchema,
-        onSubmit: async (values, {setSubmitting}) => {
-            try {
-                handleSubmit(values);
-            } catch (error) {
-                console.error("Error submitting form:", error);
-            } finally {
-                setSubmitting(false); // Ensure the button reactivates
-            }
+        onSubmit: async (values, { setSubmitting }) => {
+            await handleSave(values, setSubmitting);
         },
     });
 
-    // On page load, sort the education list by completion date
-    useEffect(() => {
-        if (userData && userData.profile.educationList.length > 0) {
-            setEducationList(userData.profile.educationList.sort(
-                (a, b) => new Date(a.completionDate).getTime() - new Date(b.completionDate).getTime()))
-        }
-    }, []);
+    const handleSave = async (values: Education, setSubmitting: (isSubmitting: boolean) => void) => {
+        try {
+            const updatedUser = produce(userData, (draft: AppUser) => {
+                if (editingIndex !== null && draft?.profile?.educationList) {
+                    // Update existing education entry
+                    draft.profile.educationList[editingIndex] = values;
+                } else {
+                    // Add a new education entry
+                    draft.profile.educationList = [...(draft.profile.educationList || []), values];
+                }
+            });
 
-    useEffect(() => {
-        if (userData && userData.profile.educationList.length > 0) {
-            // data normalized in context
-            formik.setValues(userData.profile.educationList[listIndex]);
-        }
-    }, [listIndex])
-
-    const addNew = () => {
-        setNewFlag(true);
-        formik.setValues(initialValues);
-    }
-
-    const deleteEducation = async () => {
-        const updatedList = educationList.filter((item, index) => index !== listIndex);
-        setEducationList(updatedList);
-
-        // Data is normalized in the context before submission
-        await updateUser(ApiRoutes.UpdateUserEducationList, updatedList as Partial<AppUser>);
-        if (error) {
-            if (error.message) {
-                throw new Error("Error Deleting Education: " + error.message);
+            if (updatedUser) {
+                saveUser(updatedUser);
+                Alert.alert("Education information saved successfully.");
+                setEditingIndex(null);
+                formik.resetForm();
+                onComplete();
             } else {
-                throw new Error("An unknown error occurred.");
+                throw new Error("Error: Null AppUser object cannot be saved.");
             }
-        } else {
-            toast.success("Education Deleted Successfully");
-            navigate("/user?view=education");
-        }
-    }
-
-    const handleSubmit = async (values: Education) => {
-        if (newFlag) {
-            // If new, add to the end of the list
-            const updatedList = [...educationList, values];
-            setEducationList(updatedList)
-        } else {
-            // If replacing existing, create a new list with the updated value
-            const updatedList = [...educationList];
-            updatedList[listIndex] = values;
-            setEducationList(updatedList);
-        }
-
-        // Data is normalized in the context before submission
-        await updateUser(ApiRoutes.UpdateUserEducationList, educationList as Partial<AppUser>);
-        if (error){
-            if (error.message) {
-                throw new Error("Error Updating Education: " + error.message);
-            } else {
-                throw new Error("An unknown error occurred.");
-            }
-        }
-        else {
-            toast.success("Education Updated Successfully");
-            navigate("/user?view=education");
+        } catch (error) {
+            Alert.alert("There was an error saving the data. Please try again.");
+        } finally {
+            setSubmitting(false);
         }
     };
 
-    // LIST COMPONENT FOR RENDERING EDUCATION ITEMS
-    const displayList = () => {
-        if (!educationList) {
-            return (
-                <>
-                    <p>No records found.</p>
-                    <Button variant="primary" onClick={() => addNew()}>Add New</Button>
-                </>
-            )}
+    const handleEdit = (index: number) => {
+        if (userData?.profile?.educationList) {
+            const educationItem = userData.profile.educationList[index];
+            formik.setValues(educationItem);
+            setEditingIndex(index);
+        }
+    };
+
+    const handleDelete = (index: number) => {
+        Alert.alert(
+            "Confirm Deletion",
+            "Are you sure you want to delete this education entry?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                        const updatedUser = produce(userData, (draft: AppUser) => {
+                            if (draft?.profile?.educationList) {
+                                draft.profile.educationList.splice(index, 1);
+                            }
+                        });
+
+                        if (updatedUser) {
+                            saveUser(updatedUser);
+                            Alert.alert("Education entry deleted successfully.");
+                            onComplete();
+                        }
+                    },
+                },
+            ]
+        );
+    };
+
+    useEffect(() => {
+        if (userData?.profile?.educationList) {
+            formik.setValues(initialValues); // Reset the form when userData changes
+        }
+    }, [userData]);
+
+    if (!typeData) {
         return (
             <>
-                <p>Select from the following list to edit a record or select new to add a new one.</p>
-
-                <ol>
-                    {educationList.map((item, index) => (
-                        <li
-                            key={index}
-                            onClick={() => setListIndex(index)}
-                            style={{ cursor: "pointer", marginBottom: "10px" }}
-                        >
-                            <strong>{item.degreeType}</strong> at <strong>{item.school}</strong> - {new Date(item.completionDate).toLocaleDateString()}
-                        </li>
-                    ))}
-                </ol>
-
-                <Col className="mb-2">
-                    <Button className="me-3" variant="primary" onClick={() => addNew()}>Add New</Button>
-                </Col>
-
+                <Text>Loading...</Text>
             </>
-        )
-    }
-
-    // RENDER JSX CONTENT
-    if (!userData || !typesData) {
-        return <>Loading...</>;
+        );
     }
 
     return (
-        <div className="App">
-            <h2>Education Edit</h2>
+        <View style={styles.container}>
+            <ScrollView>
+                {userData?.profile?.educationList?.map((item, index) => (
+                    <View key={index} style={styles.listItem}>
+                        <Text>{item.school}</Text>
+                        <Button title="Edit" onPress={() => handleEdit(index)} />
+                        <Button title="Delete" onPress={() => handleDelete(index)} />
+                    </View>
+                ))}
+            </ScrollView>
 
-            { displayList() }
+            <Text style={styles.formTitle}>
+                {editingIndex !== null ? "Edit Education Entry" : "Add Education Entry"}
+            </Text>
 
-            <Form noValidate onSubmit={formik.handleSubmit}>
-                <fieldset>
+            <TextInputField formLabel="School" fieldName="school" formik={formik} />
+            <SelectInputField formLabel="Degree Type" fieldName="degreeType" dataList={typeData.educationDegreeList} formik={formik}/>
+            <TextInputField formLabel="Degree Name" fieldName="degreeName" formik={formik} />
+            <TextInputField formLabel="City" fieldName="city" formik={formik} />
+            <SelectInputField formLabel="Country" fieldName="country" dataList={typeData.countries} formik={formik}/>
+            <DateInputField formLabel="Completion Date" fieldName="completionDate" formik={formik} />
 
-                    <TextField formLabel="School Name" fieldName="school" formik={formik} />
-                    <SelectField
-                        formLabel="Degree Type"
-                        fieldName="degreeType"
-                        list={typesData.educationDegreeList.data}
-                        formik={formik}
-                    />
-                    <TextField formLabel="Degree Name" fieldName="degreeName" formik={formik} />
-                    <TextField formLabel="City" fieldName="city" formik={formik} />
-                    <SelectField
-                        formLabel="State/Province"
-                        fieldName="state"
-                        list={typesData.states.data}
-                        formik={formik}
-                    />
-                    <SelectField
-                        formLabel="Country"
-                        fieldName="country"
-                        list={typesData.countries.data}
-                        formik={formik}
-                    />
+            <Button
+                title={editingIndex !== null ? "Update" : "Add"}
+                onPress={() => formik.handleSubmit()}
+                disabled={formik.isSubmitting}
+            />
 
-                    <SelectField
-                        formLabel="Degree Status"
-                        fieldName="status"
-                        list={typesData.educationStatusList.data}
-                        formik={formik}
-                    />
-
-                    <DateField
-                        formLabel="Completion or Estimated Completion Date"
-                        fieldName="completionDate"
-                        formik={formik} />
-
-                    <TextField formLabel="Grade" fieldName="grade" formik={formik} />
-
-                    <SelectField
-                        formLabel="Grade Scale"
-                        fieldName="gradeScale"
-                        list={typesData.educationGradeScaleList.data}
-                        formik={formik}
-                    />
-
-                    <TextField formLabel="Description" fieldName="description" formik={formik} />
-
-                    <SelectField
-                        formLabel="Importance to you personally or to your career"
-                        fieldName="importance"
-                        list={typesData.fiveLevelList.data}
-                        formik={formik}
-                    />
-
-                    <Col>
-                        <Button className="me-2" type="submit" disabled={formik.isSubmitting}>
-                            {formik.isSubmitting ? "Submitting..." : "Update Education"}
-                        </Button>
-                        <Verify
-                            onConfirm={deleteEducation}
-                            confirmText="Delete Education"
-                            messageText="Are you sure you want to delete this education item? This action cannot be undone.">
-                            <Button className="btn btn-danger m-2">Delete Item</Button>
-                        </Verify>
-                    </Col>
-                </fieldset>
-            </Form>
-        </div>
+            <Button
+                title="Cancel"
+                type="outline"
+                onPress={() => {
+                    setEditingIndex(null);
+                    formik.resetForm();
+                }}
+            />
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+    },
+    listItem: {
+        marginVertical: 10,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 5,
+    },
+    formTitle: {
+        fontSize: 18,
+        marginVertical: 20,
+        fontWeight: "bold",
+    },
+});
 
 export default EducationForm2;

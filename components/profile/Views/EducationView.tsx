@@ -1,63 +1,133 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import AppUser from '@/interfaces/AppUser';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import AppUser, {Education} from "@/interfaces/AppUser";
+import { ExternalLink } from '@/components/ExternalLink';
+import { Text, Card, Button, useTheme } from '@rneui/themed';
 
-const EducationView: React.FC<{ userData: AppUser }> = ({ userData }) => {
+interface EducationViewProps {
+    userData: AppUser;
+    setEditingSection: (section: string) => void;
+}
+
+const EducationView: React.FC<EducationViewProps> = ({ userData, setEditingSection }) => {
+    const { theme } = useTheme(); // Get the current theme for dynamic styling
+
+    if (!userData.profile.contact) {
+        return (
+            <View style={[styles.loadingContainer, { backgroundColor: theme.colors.background }]}>
+                <ActivityIndicator size="large" color={theme.colors.primary} />
+            </View>
+        );
+    }
+
     const { educationList } = userData.profile;
 
-    console.log(educationList);
+    const Education = ({ education }: { education: Education }) => (
+        <Card containerStyle={[styles.container, { backgroundColor: theme.colors.background }]}>
+            {education.school && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>School: </Text>{education.school}
+                </Text>
+            )}
+            {education.degreeType && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Degree Type: </Text>{education.degreeType}
+                </Text>
+            )}
+            {education.degreeName && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Degree Name: </Text>{education.degreeName}
+                </Text>
+            )}
+            {education.city && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>City: </Text>{education.city}
+                </Text>
+            )}
+            {education.state && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>State: </Text>{education.state}
+                </Text>
+            )}
+            {education.country && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Country: </Text>{education.country}
+                </Text>
+            )}
+            {education.location && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Location: </Text>{education.location}
+                </Text>
+            )}
+            {education.status && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Status: </Text>{education.status}
+                </Text>
+            )}
+            {education.completionDate && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Completion Date: </Text>{new Date(education.completionDate).toLocaleDateString()}
+                </Text>
+            )}
+            {education.grade && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Grade: </Text>{education.grade}
+                </Text>
+            )}
+            {education.gradeScale && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Grade Scale: </Text>{education.gradeScale}
+                </Text>
+            )}
+            {education.description && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Description: </Text>{education.description}
+                </Text>
+            )}
+            {education.importance && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Importance: </Text>{education.importance}
+                </Text>
+            )}
+        </Card>
+    );
+
+    if (!userData?.profile || !userData.profile) {
+        return (
+            <View style={[styles.loadingContainer, { backgroundColor: theme.colors.background }]}>
+                <ActivityIndicator size="large" color={theme.colors.primary} />
+            </View>
+        );
+    }
 
     if (!educationList || educationList.length === 0) {
         return (
-            <View style={styles.noDataContainer}>
-                <Text style={styles.noDataText}>No Education Data Entered</Text>
+            <View>
+                <Text>No educational records found.</Text>
             </View>
         );
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <>
             {educationList.map((edu, index) => (
-                <View
-                    key={index}
-                    style={[
-                        styles.educationItem,
-                        index !== educationList.length - 1 && styles.educationItemSeparator,
-                    ]}
-                >
-                    {edu.school && (
-                        <Text style={styles.text}>
-                            <Text style={styles.label}>School: </Text>
-                            <Text>{edu.school || ''}</Text>
-                        </Text>
-                    )}
-                    {edu.degreeType && (
-                        <Text style={styles.text}>
-                            <Text style={styles.label}>Degree Type: </Text>
-                            <Text>{edu.degreeType || ''}</Text>
-                        </Text>
-                    )}
-                    {edu.city && (
-                        <Text style={styles.text}>
-                            <Text style={styles.label}>City: </Text>
-                            <Text>{edu.city || ''}</Text>
-                        </Text>
-                    )}
-                    {edu.state && (
-                        <Text style={styles.text}>
-                            <Text style={styles.label}>State: </Text>
-                            <Text>{edu.state || ''}</Text>
-                        </Text>
-                    )}
-                    {edu.status && (
-                        <Text style={styles.text}>
-                            <Text style={styles.label}>Status: </Text>
-                            <Text>{edu.status || ''}</Text>
-                        </Text>
-                    )}
-                </View>
+                <Education key={index} education={edu} />
             ))}
-        </ScrollView>
+
+            <Button
+                title="Edit Education"
+                buttonStyle={{
+                    backgroundColor: theme.colors.primary,
+                    borderRadius: 3,
+                }}
+                containerStyle={{
+                    width: 200,
+                    marginHorizontal: 50,
+                    marginVertical: 10,
+                }}
+                onPress={() => setEditingSection('education')}
+            />
+        </>
     );
 };
 
@@ -65,29 +135,27 @@ export default EducationView;
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
+        marginHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        paddingHorizontal: 16,
     },
-    noDataContainer: {
+    loadingContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    noDataText: {
-        fontSize: 16,
-        color: '#666',
-    },
-    educationItem: {
-        marginBottom: 16,
-    },
-    educationItemSeparator: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-        paddingBottom: 16,
-    },
     text: {
         fontSize: 16,
+        marginBottom: 8,
     },
     label: {
         fontWeight: 'bold',
+    },
+    link: {
+        textDecorationLine: 'underline',
+    },
+    divider: {
+        marginBottom: 16,
     },
 });

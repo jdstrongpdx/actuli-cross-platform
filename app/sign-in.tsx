@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
-import {Image, SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import { Text } from '@rneui/themed';
 
 import { useSession } from "@/contexts/AuthContext";
 import React from "react";

@@ -1,20 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Picker } from '@react-native-picker/picker';
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
-
-interface Option<T> {
-    label: string;
-    value: T;
-}
+import {TypeGroup} from "@/interfaces/TypeData";
+import { Text } from '@rneui/themed';
 
 interface SelectInputFieldProps<T> {
     formik: any;
     formLabel: string;
     fieldName: string;
     placeholder?: string;
-    dataList: Option<T>[];
+    dataList: TypeGroup;
 }
 
 const SelectInputField = <T,>({
@@ -25,9 +20,9 @@ const SelectInputField = <T,>({
                                   dataList,
                               }: SelectInputFieldProps<T>) => {
     return (
-        <ThemedView style={styles.inputContainer}>
-            <ThemedText>{formLabel}</ThemedText>
-            <ThemedView
+        <View style={styles.inputContainer}>
+            <Text>{formLabel}</Text>
+            <View
                 style={[
                     styles.input,
                     formik.touched[fieldName] && formik.errors[fieldName] ? styles.errorInput : null,
@@ -39,15 +34,15 @@ const SelectInputField = <T,>({
                     onBlur={() => formik.setFieldTouched(fieldName, true)}
                 >
                     <Picker.Item label={`Select ${placeholder ? placeholder : formLabel}`} value={undefined} />
-                    {dataList.map((option, index) => (
-                        <Picker.Item key={index} label={option.label} value={option.value} />
+                    {dataList.data.map((option, id) => (
+                        <Picker.Item key={id} label={option.value} value={option.value} />
                     ))}
                 </Picker>
-            </ThemedView>
+            </View>
             {formik.touched[fieldName] && formik.errors[fieldName] && (
-                <ThemedText style={styles.errorText}>{formik.errors[fieldName]}</ThemedText>
+                <Text style={styles.errorText}>{formik.errors[fieldName]}</Text>
             )}
-        </ThemedView>
+        </View>
     );
 };
 

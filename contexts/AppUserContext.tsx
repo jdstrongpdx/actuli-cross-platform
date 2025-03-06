@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useEffect, useCallback } from 'react';
 import AppUser from '../interfaces/AppUser';
 import { useStorageState } from '@/hooks/useStorageState';
+import userData from '@/data/userData.json';
+import typesData from "@/data/typesData.json";
+import TypeData from "@/interfaces/TypeData";
 
 // AppUserContext default state
 const AppUserContext = createContext<{
@@ -40,13 +43,12 @@ export const AppUserContextProvider: React.FC<{ children: React.ReactNode }> = (
         } else {
             console.log('User not found in storage, loading from file...');
             try {
-                // Fetch user data from userData.json
-                const response = await fetch('/path/to/userData.json');
-                const userData: AppUser = await response.json();
-
-                // Save fetched user data to storage
-                saveUser(userData);
-                console.log('User data loaded from file and saved to storage');
+                if (userData) {
+                    const data: AppUser = userData;
+                    // Save fetched data to storage
+                    saveUser(data);
+                    console.log('User loaded from file and saved to storage');
+                }
             } catch (error) {
                 console.error('Error loading user from file:', error);
             }

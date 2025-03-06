@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, ScrollView, StyleSheet, Alert} from "react-native";
+import {ScrollView, StyleSheet, Text, Alert, View} from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AppUser, {Contact} from "@/interfaces/AppUser";
@@ -7,7 +7,9 @@ import {useTypeData} from "@/contexts/TypeDataContext";
 import TextInputField from "@/components/form/TextInputField";
 import SelectInputField from "@/components/form/SelectInputField";
 import {useAppUser} from "@/contexts/AppUserContext";
-import produce from "immer";
+import { produce } from "immer";
+import DateInputField from "@/components/form/DateInputField";
+import { Button} from '@rneui/themed';
 
 interface ContactForm1Props {
     userData: AppUser | null;
@@ -68,20 +70,30 @@ const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => 
         initialValues,
         validationSchema: ValidationSchema,
         onSubmit: async (values, { setSubmitting }) => {
-            try {
-                const updatedUser = produce(userData, (draft) => {
-                    draft.profile.contact = values;
-                });
+            await handleSubmit(values, setSubmitting);
+        },
+    });
+
+    const handleSubmit = async (values: Contact, setSubmitting: (isSubmitting: boolean) => void) => {
+        try {
+            const updatedUser = produce(userData, (draft: AppUser) => {
+                draft.profile.contact = { ...values };
+            });
+
+            if (updatedUser) {
                 saveUser(updatedUser);
                 Alert.alert("Contact updated successfully.");
                 onComplete();
-            } catch (error) {
-                Alert.alert("There was an error submitting the form. Please try again.");
-            } finally {
-                setSubmitting(false);
             }
-        },
-    });
+            else {
+                throw new Error("Error: Null AppUser object cannot be saved.");
+            }
+        } catch (error) {
+            Alert.alert("There was an error submitting the form. Please try again.");
+        } finally {
+            setSubmitting(false); // Stop form submission loading state
+        }
+    };
 
     useEffect(() => {
         if (userData && userData.profile.contact) {
@@ -90,8 +102,12 @@ const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => 
         }
     }, [userData]);
 
-    if (!userData) {
-        return <Text>Loading...</Text>;
+    if (!typeData) {
+        return (
+            <>
+                <Text>Loading...</Text>
+            </>
+        );
     }
 
     return (
@@ -102,29 +118,45 @@ const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => 
             <TextInputField formLabel="Address1" fieldName="address1" formik={formik} />
             <TextInputField formLabel="Address2" fieldName="address2" formik={formik} />
             <TextInputField formLabel="City" fieldName="city" formik={formik} />
-            <SelectInputField formLabel="State" fieldName="state" dataList={typeData.states.data} formik={formik}/>
+            <SelectInputField formLabel="State" fieldName="state" dataList={typeData.states} formik={formik}/>
             <TextInputField formLabel="Postal Code" fieldName="postalCode" formik={formik} />
-            <SelectInputField formLabel="Country" fieldName="country" dataList={typeData.countries.data} formik={formik}/>
+            <SelectInputField formLabel="Country" fieldName="country" dataList={typeData.countries} formik={formik}/>
             <TextInputField formLabel="Mobile Phone" fieldName="mobilePhone" formik={formik} />
             <TextInputField formLabel="Home Phone" fieldName="homePhone" formik={formik} />
             <TextInputField formLabel="Website" fieldName="website" formik={formik} />
+            <DateInputField formLabel="Date of Birth" fieldName="dateOfBirth" formik={formik} />
 
             <Button
-                title={formik.isSubmitting ? "Submitting..." : "Submit"}
-                disabled={formik.isSubmitting}
-                onPress={formik.handleSubmit}
+                title="Save Contact"
+                onPress={() => formik.submitForm()}
+                buttonStyle={styles.saveButton}
+                disabled={formik.isSubmitting || !formik.isValid}
+                loading={formik.isSubmitting}
             />
+
             <Button
-            title="Cancel"
-            onPress={onComplete}
-        />
+                title="Cancel"
+                onPress={onComplete}
+                buttonStyle={styles.cancelButton}
+            />
+
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     formContainer: {
-        padding: 16,
+        paddingHorizontal: 16,
+        paddingBottom: 130
+    },
+    saveButton: {
+        backgroundColor: "rgba(78, 116, 289, 1)",
+        borderRadius: 3,
+    },
+    cancelButton: {
+        backgroundColor: "#868686",
+        borderRadius: 3,
+        marginTop: 10,
     },
 });
 

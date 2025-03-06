@@ -1,4 +1,3 @@
-import { Text } from 'react-native';
 import { Redirect, Slot } from 'expo-router';
 import { useSession } from '@/contexts/AuthContext';
 import { Platform } from 'react-native';
@@ -8,11 +7,11 @@ import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import React from "react";
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { useTheme, Text } from '@rneui/themed';
 
 export default function TabsLayout() {
     const { session, isLoading } = useSession();
-    const colorScheme = useColorScheme();
+    const { theme } = useTheme();
 
     // Render a loading indicator while the session is being initialized
     if (isLoading) {
@@ -28,13 +27,17 @@ export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+                headerShown: false,
+                headerStyle: {
+                    backgroundColor: Colors[theme.mode ?? 'light'].background, // Dynamic header background
+                },
+                headerTintColor: Colors[theme.mode ?? 'light'].text, // Dynamic header text color
+                tabBarActiveTintColor: Colors[theme.mode ?? 'light'].tint,
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
                 tabBarStyle: Platform.select({
                     ios: {
-                        // Use a transparent background on iOS to show the blur effect
-                        position: 'absolute',
+                        position: 'absolute', // Transparent background for iOS
                     },
                     default: {},
                 }),

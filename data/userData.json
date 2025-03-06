@@ -22,55 +22,55 @@
     },
     "educationList": [
       {
-        "School": "Generic College 1",
-        "DegreeType": "Bachelor's Degree",
-        "DegreeName": "Computer Science",
-        "City": null,
-        "State": null,
-        "Country": null,
-        "Status": "Graduated",
-        "CompletionDate": null,
-        "Grade": null,
-        "GradeScale": null,
-        "Description": null,
-        "Importance": null
+        "school": "Generic College 1",
+        "degreeType": "Bachelor's Degree",
+        "degreeName": "Computer Science",
+        "city": null,
+        "state": null,
+        "country": null,
+        "status": "Graduated",
+        "completionDate": null,
+        "grade": null,
+        "gradeScale": null,
+        "description": null,
+        "importance": null
       },
       {
-        "School": "Generic College 2",
-        "DegreeType": "Masters's Degree",
-        "DegreeName": "Computer Science",
-        "City": null,
-        "State": null,
-        "Country": null,
-        "Status": "Graduated",
-        "CompletionDate": null,
-        "Grade": null,
-        "GradeScale": null,
-        "Description": null,
-        "Importance": null
+        "school": "Generic College 2",
+        "degreeType": "Masters's Degree",
+        "degreeName": "Computer Science",
+        "city": null,
+        "state": null,
+        "country": null,
+        "status": "Graduated",
+        "completionDate": null,
+        "grade": null,
+        "gradeScale": null,
+        "description": null,
+        "importance": null
       }
     ],
     "workList": [],
     "relationshipList": [],
     "identity": {
-      "Gender": null,
-      "Sexuality": null,
-      "RelationshipStatus": null,
-      "Nationality": null,
-      "CoreValues": null,
-      "TechnologicalLiteracy": null,
-      "PoliticalValues": null
+      "gender": null,
+      "sexuality": null,
+      "relationshipStatus": null,
+      "nationality": null,
+      "coreValues": null,
+      "technologicalLiteracy": null,
+      "politicalValues": null
     },
     "religionsList": [],
     "travelsList": [],
     "health": {
-      "HealthName": null
+      "healthName": null
     },
     "activitiesList": [],
     "givingList": [],
     "finances": {
-      "FinancialName": null,
-      "HousingSituation": null
+      "financialName": null,
+      "housingSituation": null
     }
   },
   "overview": {
@@ -93,5 +93,5 @@
   "goals": [],
   "accomplishments": [],
   "createdAt": "2025-02-21T01:16:13.564464Z",
-  "modifiedAt": "2025-02-21T01:16:13.56452Z",
+  "modifiedAt": "2025-02-21T01:16:13.56452Z"
 }

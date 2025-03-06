@@ -1,31 +1,36 @@
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+import {Text, useTheme} from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
 export default function AchievementsPage() {
+    const { theme } = useTheme();
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+            style={[
+                styles.container,
+                { backgroundColor: theme.colors.background },
+            ]}
+        >
             {/* Hero Section */}
-            <ThemedView style={styles.heroContainer}>
+            <View style={styles.heroContainer}>
                 <Image
                     source={require('@/assets/images/actuliLogo.png')}
                     style={styles.heroImage}
                 />
-            </ThemedView>
+            </View>
 
             {/* Title */}
-            <ThemedText type="title" style={styles.title}>
+            <Text style={styles.title}>
                 Achievements Page
-            </ThemedText>
+            </Text>
 
             {/* Page Text */}
-            <ThemedText style={styles.pageText}>
+            <Text style={styles.pageText}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                 vehicula, erat eget accumsan vehicula, sapien ipsum dictum dolor, id
                 auctor mi lorem at magna.
-            </ThemedText>
+            </Text>
         </SafeAreaView>
     );
 }
@@ -33,7 +38,6 @@ export default function AchievementsPage() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff', // Or use your theme's background color
     },
     heroContainer: {
         alignItems: 'center',

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useCallback } from 'react';
 import TypeData from '@/interfaces/TypeData';
+import typesData from '@/data/typesData.json'
 import { useStorageState } from '@/hooks/useStorageState';
 
 // Define the context default state
@@ -46,15 +47,14 @@ export const TypeDataContextProvider: React.FC<{ children: React.ReactNode }> = 
         } else {
             console.log('TypeData not found in storage, loading from file...');
             try {
-                // Fetch data from typesData.json
-                const response = await fetch('/path/to/typesData.json');
-                if (!response.ok) throw new Error('Failed to fetch type data');
 
-                const data: TypeData = await response.json();
+                if (typesData) {
+                    const data: TypeData = typesData;
+                    // Save fetched data to storage
+                    saveTypeData(data);
+                    console.log('TypeData loaded from file and saved to storage');
+                }
 
-                // Save fetched data to storage
-                saveTypeData(data);
-                console.log('TypeData loaded from file and saved to storage');
             } catch (error) {
                 console.error('Error loading type data from file:', error);
             }

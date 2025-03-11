@@ -10,6 +10,10 @@ import DateInputField from "@/components/form/DateInputField";
 import { Button, Text } from "@rneui/themed";
 import SelectInputField from "@/components/form/SelectInputField";
 import {useTypeData} from "@/contexts/TypeDataContext";
+import {replaceEmptyStringWithNull} from "@/utils/normalizationUtils";
+import apiRequest from "@/utils/apiRequest";
+import {ApiMethods, ApiRoutes} from "@/enums/ApiEnums";
+import {useSession} from "@/contexts/AuthContext";
 
 interface EducationForm2Props {
     userData: AppUser | null;
@@ -35,7 +39,9 @@ const initialValues: Education = {
 const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete }) => {
     const { saveUser } = useAppUser();
     const { typeData } = useTypeData();
+    const { educationList } = userData?.profile || {};
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
+    const { token } = useSession();
 
     const ValidationSchema = () =>
         Yup.object().shape({
@@ -61,35 +67,42 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
         initialValues,
         validationSchema: ValidationSchema,
         onSubmit: async (values, { setSubmitting }) => {
-            await handleSave(values, setSubmitting);
+            formik.setSubmitting(true);
+            await handleSave(values).then(() => {
+                formik.setSubmitting(false);
+            });
         },
     });
 
-    const handleSave = async (values: Education, setSubmitting: (isSubmitting: boolean) => void) => {
+    const handleSave = async (values: Education) => {
         try {
-            const updatedUser = produce(userData, (draft: AppUser) => {
-                if (editingIndex !== null && draft?.profile?.educationList) {
-                    // Update existing education entry
-                    draft.profile.educationList[editingIndex] = values;
-                } else {
-                    // Add a new education entry
-                    draft.profile.educationList = [...(draft.profile.educationList || []), values];
-                }
-            });
+            const sanitizedData = replaceEmptyStringWithNull(values);
+
+            let updatedEducationList: Education[];
+            if (educationList && editingIndex !== null) {
+                updatedEducationList = educationList.map((item, index) =>
+                    index === editingIndex ? { ...item, ...sanitizedData } : item
+                );
+            } else {
+                updatedEducationList = [...educationList, { ...sanitizedData, id: Date.now().toString() }]; // Temporary ID
+            }
+
+            const updatedUser: AppUser = await apiRequest<AppUser>(
+                ApiMethods.Put,
+                ApiRoutes.UpdateUserEducationList,
+                updatedEducationList,
+                {},
+                token
+            );
 
             if (updatedUser) {
                 saveUser(updatedUser);
-                Alert.alert("Education information saved successfully.");
-                setEditingIndex(null);
-                formik.resetForm();
+                Alert.alert("Education updated successfully.");
                 onComplete();
-            } else {
-                throw new Error("Error: Null AppUser object cannot be saved.");
             }
         } catch (error) {
-            Alert.alert("There was an error saving the data. Please try again.");
-        } finally {
-            setSubmitting(false);
+            console.error("Error updating education:", error);
+            Alert.alert("An error occurred while updating education.");
         }
     };
 
@@ -177,6 +190,7 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
                 onPress={() => {
                     setEditingIndex(null);
                     formik.resetForm();
+                    onComplete();
                 }}
             />
         </View>

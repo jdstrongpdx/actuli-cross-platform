@@ -10,7 +10,7 @@ import React from "react";
 import { useTheme, Text } from '@rneui/themed';
 
 export default function TabsLayout() {
-    const { session, isLoading } = useSession();
+    const { token, isLoading } = useSession();
     const { theme } = useTheme();
 
     // Render a loading indicator while the session is being initialized
@@ -19,7 +19,7 @@ export default function TabsLayout() {
     }
 
     // Redirect unauthenticated users to the sign-in screen
-    if (!session) {
+    if (!token) {
         return <Redirect href="/sign-in" />;
     }
 

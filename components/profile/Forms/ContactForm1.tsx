@@ -10,6 +10,11 @@ import {useAppUser} from "@/contexts/AppUserContext";
 import { produce } from "immer";
 import DateInputField from "@/components/form/DateInputField";
 import { Button} from '@rneui/themed';
+import TypeData from "@/interfaces/TypeData";
+import apiRequest from "@/utils/apiRequest";
+import {ApiMethods, ApiRoutes} from "@/enums/ApiEnums";
+import {useSession} from "@/contexts/AuthContext";
+import {replaceEmptyStringWithNull} from "@/utils/normalizationUtils";
 
 interface ContactForm1Props {
     userData: AppUser | null;
@@ -35,6 +40,7 @@ const initialValues: Contact = {
 const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => {
     const { typeData } = useTypeData();
     const { saveUser } = useAppUser();
+    const { token } = useSession();
 
     const ValidationSchema = () =>
         Yup.object().shape({
@@ -76,18 +82,22 @@ const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => 
 
     const handleSubmit = async (values: Contact, setSubmitting: (isSubmitting: boolean) => void) => {
         try {
-            const updatedUser = produce(userData, (draft: AppUser) => {
-                draft.profile.contact = { ...values };
-            });
+            const sanitizedData = replaceEmptyStringWithNull(values);
+
+            const updatedUser: AppUser = await apiRequest<Contact>(
+                ApiMethods.Put,
+                ApiRoutes.UpdateUserContact,
+                sanitizedData,
+                {},
+                token
+            );
 
             if (updatedUser) {
-                saveUser(updatedUser);
+                saveUser(updatedUser as AppUser);
                 Alert.alert("Contact updated successfully.");
                 onComplete();
             }
-            else {
-                throw new Error("Error: Null AppUser object cannot be saved.");
-            }
+
         } catch (error) {
             Alert.alert("There was an error submitting the form. Please try again.");
         } finally {

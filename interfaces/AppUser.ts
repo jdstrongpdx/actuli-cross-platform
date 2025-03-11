@@ -7,8 +7,8 @@ export default interface AppUser {
     overview?: Overview;
     goals?: Goal[];
     accomplishments?: Accomplishment[];
-    createdAt?: string;  // ISO Date string
-    modifiedAt?: string; // ISO Date string
+    createdAt: string;  // ISO Date string
+    modifiedAt: string; // ISO Date string
 }
 
 // profile Structure

@@ -8,7 +8,7 @@ import { ApiRoutes, ApiMethods } from "@/enums/ApiEnums";
  * @param {ApiRoutes} route - The API route (use ApiRoutes enum).
  * @param {Object} [data] - Optional request payload (for POST, PUT).
  * @param {Record<string, string>} [params] - Optional params to replace placeholders like ":id".
- * @param {string | null} session - The access token for authentication.
+ * @param {string | null} token - The access token for authentication.
  * @returns {Promise<T | null>} - The API response data or null on error.
  */
 export default async function apiRequest<T>(
@@ -16,9 +16,9 @@ export default async function apiRequest<T>(
     route: ApiRoutes,
     data: object | null = null,
     params: Record<string, string> = {},
-    session: string | null = null
+    token: string | null = null
 ): Promise<T | null> {
-    if (!session) {
+    if (!token) {
         console.warn("No access token available, authentication required.");
         return null;
     }
@@ -34,18 +34,13 @@ export default async function apiRequest<T>(
             url: `${protectedResources.backend.endpoint}${endpoint}`,
             data,
             headers: {
-                Authorization: `Bearer ${session}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
         });
-
-        console.log(`API ${method} request to ${endpoint} successful:`, response.data);
         return response.data;
     } catch (error: any) {
-        console.error(
-            `API ${method} request to ${endpoint} failed:`,
-            error.response?.data || error.message
-        );
+        console.error(`API ${method} request to ${endpoint} failed:`, error.response?.data || error.message);
         return null;
     }
 }

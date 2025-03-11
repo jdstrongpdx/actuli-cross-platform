@@ -7,7 +7,7 @@ import { TypeDataContextProvider } from "@/contexts/TypeDataContext";
 import React from "react";
 
 export default function AppLayout() {
-    const { session, isLoading } = useSession();
+    const { token, isLoading } = useSession();
 
     // Render a loading indicator while the session is being initialized
     if (isLoading) {
@@ -15,7 +15,7 @@ export default function AppLayout() {
     }
 
     // Redirect unauthenticated users to the sign-in screen
-    if (!session) {
+    if (!token) {
         return <Redirect href="/sign-in" />;
     }
 

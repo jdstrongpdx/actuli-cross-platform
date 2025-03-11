@@ -6,7 +6,7 @@ import { useSession } from '@/contexts/AuthContext';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function SettingsPage() {
-    const { session, signIn, signOut } = useSession();
+    const { token, signIn, signOut } = useSession();
     const { clearUser } = useAppUser();
     const { theme } = useTheme();
 
@@ -26,7 +26,7 @@ export default function SettingsPage() {
             </View>
 
             {/* Logout Button */}
-            {session ? (
+            {token ? (
                 <Text style={styles.logoutButton} onPress={() => signOut()}>
                     Logout
                 </Text>

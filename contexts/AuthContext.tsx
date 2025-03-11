@@ -11,20 +11,19 @@ import {
     useAuthRequest,
     useAutoDiscovery,
 } from 'expo-auth-session';
-import { Button } from 'react-native';
-import { msalConfig } from "@/msal.config";
+import {msalConfig} from "@/msal.config";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const AuthContext = createContext<{
     signIn: () => void;
     signOut: () => void;
-    session?: string | null;
+    token?: string | null;
     isLoading: boolean;
 }>({
     signIn: () => null,
     signOut: () => null,
-    session: null,
+    token: null,
     isLoading: false,
 });
 
@@ -52,14 +51,14 @@ export function SessionProvider({ children }: PropsWithChildren) {
     const clientId = msalConfig.auth.clientId;
 
     // State to manage session and loading
-    const [session, setSession] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     // Authentication request
     const [request, , promptAsync] = useAuthRequest(
         {
             clientId,
-            scopes: ['openid', 'profile', 'email', 'offline_access'],
+            scopes: msalConfig.auth.scopes,
             redirectUri,
         },
         discovery,
@@ -84,7 +83,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
                     },
                     discovery,
                 );
-                setSession(tokenResponse.accessToken);
+                setToken(tokenResponse.accessToken);
             }
         } catch (error) {
             console.error('Sign-in failed:', error);
@@ -95,7 +94,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
     // Sign-out logic
     const signOut = () => {
-        setSession(null);
+        setToken(null);
     };
 
     return (
@@ -103,7 +102,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
             value={{
                 signIn,
                 signOut,
-                session,
+                token,
                 isLoading,
             }}
         >

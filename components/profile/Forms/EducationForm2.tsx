@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View, Alert } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import AppUser, { Education } from "@/interfaces/AppUser";
+import AppUser, {Contact, Education} from "@/interfaces/AppUser";
 import { useAppUser } from "@/contexts/AppUserContext";
 import { produce } from "immer";
 import TextInputField from "@/components/form/TextInputField";
 import DateInputField from "@/components/form/DateInputField";
-import { Button, Text } from "@rneui/themed";
+import {Button, Text, useTheme} from "@rneui/themed";
 import SelectInputField from "@/components/form/SelectInputField";
 import {useTypeData} from "@/contexts/TypeDataContext";
 import {replaceEmptyStringWithNull} from "@/utils/normalizationUtils";
@@ -33,7 +33,8 @@ const initialValues: Education = {
     grade: "",
     gradeScale: "",
     description: "",
-    importance: "",
+    personalImportance: "",
+    careerImportance: "",
 };
 
 const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete }) => {
@@ -42,52 +43,60 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
     const { educationList } = userData?.profile || {};
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
     const { token } = useSession();
+    const { theme } = useTheme();
 
     const ValidationSchema = () =>
         Yup.object().shape({
             school: Yup.string().required("School name is required."),
             degreeType: Yup.string().required("Degree type is required."),
-            degreeName: Yup.string().optional(),
-            city: Yup.string().optional(),
-            state: Yup.string().optional(),
-            country: Yup.string().optional(),
-            location: Yup.string().optional(),
-            status: Yup.string().optional(),
+            degreeName: Yup.string().optional().nullable(),
+            city: Yup.string().optional().nullable(),
+            state: Yup.string().optional().nullable(),
+            country: Yup.string().optional().nullable(),
+            location: Yup.string().optional().nullable(),
+            status: Yup.string(),
             completionDate: Yup.date()
                 .optional()
                 .nullable()
                 .max(new Date(), "Completion date cannot be in the future."),
-            grade: Yup.string().optional(),
-            gradeScale: Yup.string().optional(),
-            description: Yup.string().optional(),
-            importance: Yup.string().optional(),
+            grade: Yup.string().optional().nullable(),
+            gradeScale: Yup.string().optional().nullable(),
+            description: Yup.string().optional().nullable(),
+            personalImportance: Yup.string().optional().nullable(),
+            careerImportance: Yup.string().optional().nullable(),
         });
 
     const formik = useFormik({
         initialValues,
         validationSchema: ValidationSchema,
         onSubmit: async (values, { setSubmitting }) => {
-            formik.setSubmitting(true);
-            await handleSave(values).then(() => {
-                formik.setSubmitting(false);
-            });
+            await handleSubmit(values, setSubmitting);
         },
     });
 
-    const handleSave = async (values: Education) => {
+    const handleSubmit = async (values: Education, setSubmitting: (isSubmitting: boolean) => void) => {
         try {
             const sanitizedData = replaceEmptyStringWithNull(values);
 
-            let updatedEducationList: Education[];
-            if (educationList && editingIndex !== null) {
-                updatedEducationList = educationList.map((item, index) =>
-                    index === editingIndex ? { ...item, ...sanitizedData } : item
-                );
+            let updatedEducationList: Education[] = [];
+
+            if (Array.isArray(educationList)) {
+                if (editingIndex === null) {
+                    // Add the new education item if no index is being edited
+                    updatedEducationList = [...educationList, sanitizedData];
+                } else {
+                    // Replace the existing item at the specific index
+                    updatedEducationList = educationList.map((item, index) =>
+                        index === editingIndex ? sanitizedData : item
+                    );
+                }
             } else {
-                updatedEducationList = [...educationList, { ...sanitizedData, id: Date.now().toString() }]; // Temporary ID
+                // If educationList is not an array, initialize it with the new item
+                updatedEducationList = [sanitizedData];
             }
 
-            const updatedUser: AppUser = await apiRequest<AppUser>(
+            // Route accepts updated Education List and returns updated App User
+            const updatedUser: AppUser = await apiRequest<Education>(
                 ApiMethods.Put,
                 ApiRoutes.UpdateUserEducationList,
                 updatedEducationList,
@@ -96,13 +105,15 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
             );
 
             if (updatedUser) {
-                saveUser(updatedUser);
-                Alert.alert("Education updated successfully.");
+                saveUser(updatedUser as AppUser);
+                Alert.alert("Education List updated successfully.");
                 onComplete();
             }
+
         } catch (error) {
-            console.error("Error updating education:", error);
-            Alert.alert("An error occurred while updating education.");
+            Alert.alert("There was an error submitting the form. Please try again.");
+        } finally {
+            setSubmitting(false); // Stop form submission loading state
         }
     };
 
@@ -114,6 +125,7 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
         }
     };
 
+    // TODO: Delete not working correctly
     const handleDelete = (index: number) => {
         Alert.alert(
             "Confirm Deletion",
@@ -123,17 +135,32 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
                 {
                     text: "Delete",
                     style: "destructive",
-                    onPress: () => {
-                        const updatedUser = produce(userData, (draft: AppUser) => {
-                            if (draft?.profile?.educationList) {
-                                draft.profile.educationList.splice(index, 1);
-                            }
-                        });
+                    onPress: async () => {
+                        try {
+                            console.log("Delete education entry at index: ", index);
+                            let updatedEducationList: Education[] = [];
 
-                        if (updatedUser) {
-                            saveUser(updatedUser);
-                            Alert.alert("Education entry deleted successfully.");
-                            onComplete();
+                            // Ensure educationList is valid and filter out the index to be deleted
+                            if (Array.isArray(educationList)) {
+                                updatedEducationList = educationList.filter((_, i) => i !== index);
+                            }
+
+                            // Make the API request to update the user's education list
+                            const updatedUser: AppUser = await apiRequest<Education>(
+                                ApiMethods.Put,
+                                ApiRoutes.UpdateUserEducationList,
+                                updatedEducationList,
+                                {},
+                                token
+                            );
+
+                            // If the user is successfully updated, save the user and notify
+                            if (updatedUser) {
+                                saveUser(updatedUser as AppUser);
+                                Alert.alert("Education entry deleted successfully.");
+                            }
+                        } catch (error) {
+                            Alert.alert("There was an error deleting the education entry. Please try again.");
                         }
                     },
                 },
@@ -160,9 +187,35 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
             <ScrollView>
                 {userData?.profile?.educationList?.map((item, index) => (
                     <View key={index} style={styles.listItem}>
-                        <Text>{item.school}</Text>
-                        <Button title="Edit" onPress={() => handleEdit(index)} />
-                        <Button title="Delete" onPress={() => handleDelete(index)} />
+                        {item.school && (
+                            <Text style={[styles.text, { color: theme.colors.primary }]}>
+                                <Text style={styles.label}>School: </Text>{item.school}
+                            </Text>
+                        )}
+                        {item.degreeType && (
+                            <Text style={[styles.text, { color: theme.colors.primary }]}>
+                                <Text style={styles.label}>Degree Type: </Text>{item.degreeType}
+                            </Text>
+                        )}
+                        {item.degreeName && (
+                            <Text style={[styles.text, { color: theme.colors.primary }]}>
+                                <Text style={styles.label}>Degree Name: </Text>{item.degreeName}
+                            </Text>
+                        )}
+                        <Button title="Edit"
+                                style = {{
+                                    width: 100,
+                                    borderRadius: 5,
+                                    marginTop: 10,
+                                }}
+                                onPress={() => handleEdit(index)} />
+                        <Button title="Delete"
+                                style = {{
+                                    width: 100,
+                                    borderRadius: 5,
+                                    marginTop: 10,
+                                }}
+                                onPress={() => handleDelete(index)} />
                     </View>
                 ))}
             </ScrollView>
@@ -175,13 +228,20 @@ const EducationForm2: React.FC<EducationForm2Props> = ({ userData, onComplete })
             <SelectInputField formLabel="Degree Type" fieldName="degreeType" dataList={typeData.educationDegreeList} formik={formik}/>
             <TextInputField formLabel="Degree Name" fieldName="degreeName" formik={formik} />
             <TextInputField formLabel="City" fieldName="city" formik={formik} />
+            <SelectInputField formLabel="State" fieldName="state" dataList={typeData.states} formik={formik}/>
             <SelectInputField formLabel="Country" fieldName="country" dataList={typeData.countries} formik={formik}/>
+            <SelectInputField formLabel="Status" fieldName="status" dataList={typeData.educationStatusList} formik={formik}/>
             <DateInputField formLabel="Completion Date" fieldName="completionDate" formik={formik} />
-
+            <SelectInputField formLabel="Grade Scale" fieldName="gradeScale" dataList={typeData.educationGradeScaleList} formik={formik}/>
+            <TextInputField formLabel={"Grade based on Grade Scale Above"} fieldName="grade" formik={formik} />
+            <TextInputField formLabel="Description" fieldName="description" formik={formik} />
+            <SelectInputField formLabel="Importance to you personally." fieldName="importance" dataList={typeData.sevenLevelList} formik={formik}/>
+            <SelectInputField formLabel="Importance to your career." fieldName="importance" dataList={typeData.sevenLevelList} formik={formik}/>
             <Button
-                title={editingIndex !== null ? "Update" : "Add"}
+                title={editingIndex !== null ? "Update Selected Education Record" : "Add a new Education Record"}
                 onPress={() => formik.handleSubmit()}
                 disabled={formik.isSubmitting}
+                style={{ marginBottom: 10 }}
             />
 
             <Button
@@ -212,6 +272,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginVertical: 20,
         fontWeight: "bold",
+    },
+    text: {
+        fontSize: 16,
+        marginBottom: 8,
+    },
+    label: {
+        fontWeight: 'bold',
     },
 });
 

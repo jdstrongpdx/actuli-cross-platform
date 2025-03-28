@@ -4,10 +4,12 @@ import { useAppUser } from '@/contexts/AppUserContext';
 import { Text, Switch, useTheme, useThemeMode } from '@rneui/themed';
 import { useSession } from '@/contexts/AuthContext';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTypeData} from "@/contexts/TypeDataContext";
 
 export default function SettingsPage() {
     const { token, signIn, signOut } = useSession();
-    const { clearUser } = useAppUser();
+    const { clearUser, loadUser } = useAppUser();
+    const { loadTypeData } = useTypeData();
     const { theme } = useTheme();
 
     return (
@@ -25,20 +27,28 @@ export default function SettingsPage() {
                 />
             </View>
 
+
+
             {/* Logout Button */}
             {token ? (
-                <Text style={styles.logoutButton} onPress={() => signOut()}>
-                    Logout
-                </Text>
+                <View>
+                    <Text style={styles.logoutButton} onPress={() => signOut()}>
+                        Logout & Clear User Data
+                    </Text>
+                    <Text style={styles.logoutButton} onPress={() => loadUser()}>
+                        Refresh User Data
+                    </Text>
+                    <Text style={styles.logoutButton} onPress={() => loadTypeData()}>
+                        Refresh Type Data
+                    </Text>
+                </View>
             ) : (
                 <Text style={styles.logoutButton} onPress={() => signIn()}>
                     Sign In
                 </Text>
             )}
 
-            <Text style={styles.logoutButton} onPress={() => clearUser()}>
-                Clear User Data
-            </Text>
+
         </SafeAreaView>
     );
 }

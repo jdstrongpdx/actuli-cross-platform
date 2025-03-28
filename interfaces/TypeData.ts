@@ -8,6 +8,13 @@ export default interface TypeData {
     educationDegreeList: TypeGroup;
     educationStatusList: TypeGroup;
     educationGradeScaleList: TypeGroup;
+    workIndustryList: TypeGroup;
+    workCareerLevelList: TypeGroup;
+    workWageScaleList: TypeGroup;
+    workStatusList: TypeGroup;
+    relationshipTypeList: TypeGroup;
+    relationshipStatusList: TypeGroup;
+    frequenciesList: TypeGroup;
 }
 
 export interface TypeGroup {

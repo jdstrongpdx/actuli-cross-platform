@@ -84,9 +84,14 @@ const EducationView: React.FC<EducationViewProps> = ({ userData, setEditingSecti
                     <Text style={styles.label}>Description: </Text>{education.description}
                 </Text>
             )}
-            {education.importance && (
+            {education.personalImportance && (
                 <Text style={[styles.text, { color: theme.colors.primary }]}>
-                    <Text style={styles.label}>Importance: </Text>{education.importance}
+                    <Text style={styles.label}>Personal Importance: </Text>{education.personalImportance}
+                </Text>
+            )}
+            {education.careerImportance && (
+                <Text style={[styles.text, { color: theme.colors.primary }]}>
+                    <Text style={styles.label}>Career Importance: </Text>{education.careerImportance}
                 </Text>
             )}
         </Card>
@@ -100,19 +105,21 @@ const EducationView: React.FC<EducationViewProps> = ({ userData, setEditingSecti
         );
     }
 
-    if (!educationList || educationList.length === 0) {
-        return (
+    const educationListMap = (educationList && educationList.length > 0) ?
+        (
+            educationList.map((edu, index) => (
+                <Education key={index} education={edu} />
+            ))
+        ) :
+        (
             <View>
                 <Text>No educational records found.</Text>
             </View>
-        );
-    }
+        )
 
     return (
-        <>
-            {educationList.map((edu, index) => (
-                <Education key={index} education={edu} />
-            ))}
+        <View>
+            {educationListMap}
 
             <Button
                 title="Edit Education"
@@ -127,7 +134,7 @@ const EducationView: React.FC<EducationViewProps> = ({ userData, setEditingSecti
                 }}
                 onPress={() => setEditingSection('education')}
             />
-        </>
+        </View>
     );
 };
 

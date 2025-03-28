@@ -1,4 +1,4 @@
-import { Redirect, Slot } from 'expo-router';
+import {Redirect, router, Slot} from 'expo-router';
 import { useSession } from '@/contexts/AuthContext';
 import { Platform } from 'react-native';
 import { Tabs } from 'expo-router';
@@ -20,7 +20,7 @@ export default function TabsLayout() {
 
     // Redirect unauthenticated users to the sign-in screen
     if (!token) {
-        return <Redirect href="/sign-in" />;
+        return <Redirect href="/home" />;
     }
 
     // Wrap authenticated routes with the AppUserContextProvider

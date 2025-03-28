@@ -1,32 +1,47 @@
 import { router } from 'expo-router';
 import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import { Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
+
 
 import { useSession } from "@/contexts/AuthContext";
 import React from "react";
 
-export default function SignIn() {
+export default function Home() {
     const { signIn } = useSession();
     return (
         <SafeAreaView style={styles.container}>
-            <Text
-                onPress={() => {
-                    signIn();
-                    // Navigate after signing in. You may want to tweak this to ensure sign-in is
-                    // successful before navigating.
-                    router.replace('/');
-                }}>
-                Sign In
-            </Text>
+
             <ScrollView contentContainerStyle={styles.contentContainer}>
+                <Button
+                    title="Sign In"
+                    onPress={() => {
+                        signIn();
+                        // Navigate after signing in. You may want to tweak this to ensure sign-in is
+                        // successful before navigating.
+                        router.replace('/');
+                    }}
+                    buttonStyle={{
+                        backgroundColor: '#6200ee',
+                        borderRadius: 8,
+                        paddingVertical: 12,
+                    }}
+                    titleStyle={{
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                    }}
+                    containerStyle={{
+                        margin: 20,
+                    }}
+                />
+
                 {/* Header Section */}
-                <View style={styles.headerSection}>
-                    <Image
-                        source={require('@/assets/images/actuliLogo.png')} // Adjust the source as needed
-                        style={styles.headerImage}
-                        resizeMode="cover"
-                    />
-                </View>
+
+                <Image
+                    source={require('@/assets/images/actuliLogo.png')} // Adjust the source as needed
+                    style={styles.headerImage}
+                    resizeMode="contain"
+                />
 
                 {/* Title Section */}
                 <View style={styles.titleSection}>
@@ -132,10 +147,12 @@ const styles = StyleSheet.create({
     },
     headerImage: {
         width: '50%',
-        maxWidth: 500,
-        height: undefined,
-        aspectRatio: 1, // Ensures proper scaling
+        height: '50%',
+        maxWidth: 800,
+        maxHeight: 800,
+        aspectRatio: 1,
         borderRadius: 20,
+        alignSelf: 'center',
     },
     titleSection: {
         alignItems: 'center',

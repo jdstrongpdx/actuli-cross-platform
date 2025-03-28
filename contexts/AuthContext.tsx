@@ -13,6 +13,8 @@ import {
 } from 'expo-auth-session';
 import {msalConfig} from "@/msal.config";
 
+const AUTH_DATA_KEY = 'auth_data'; // SecureStore key TODO get from env variable
+
 WebBrowser.maybeCompleteAuthSession();
 
 const AuthContext = createContext<{
@@ -35,7 +37,6 @@ export function useSession() {
             throw new Error('useSession must be wrapped in a <SessionProvider />');
         }
     }
-
     return value;
 }
 

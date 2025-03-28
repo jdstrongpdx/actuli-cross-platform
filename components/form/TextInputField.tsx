@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Input } from '@rneui/themed'; // React Native Elements Input component
+import { Input, useTheme } from '@rneui/themed'; // React Native Elements Input component
 import { FormikProps } from 'formik';
 
 type TextInputFieldProps<T> = {
@@ -19,11 +19,14 @@ const TextInputField = <T,>({
                                 placeholder,
                                 secureTextEntry = false,
                             }: TextInputFieldProps<T>) => {
+    const { theme } = useTheme(); // Get theme for styling
+
     return (
         <View style={styles.container}>
             <Input
                 label={formLabel}
                 placeholder={placeholder || (fieldName as string)}
+                placeholderTextColor={theme.colors.grey3} // Apply themed placeholder color
                 onChangeText={formik.handleChange(fieldName as string)}
                 onBlur={formik.handleBlur(fieldName as string)}
                 value={formik.values[fieldName] as string}
@@ -33,6 +36,17 @@ const TextInputField = <T,>({
                         ? (formik.errors[fieldName] as string)
                         : undefined
                 }
+                inputStyle={{ color: theme.colors.black }} // Themed text color for input
+                labelStyle={{
+                    color: theme.colors.primary, // Themed label color
+                    fontWeight: 'bold',
+                }}
+                errorStyle={{
+                    color: theme.colors.error, // Themed error color
+                }}
+                containerStyle={{
+                    paddingHorizontal: 0, // To align with external spacing
+                }}
             />
         </View>
     );

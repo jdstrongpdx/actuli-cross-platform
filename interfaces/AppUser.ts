@@ -59,7 +59,8 @@ export interface Education {
     grade: string;
     gradeScale: string;
     description: string;
-    importance: string;
+    personalImportance: string;
+    careerImportance: string;
 }
 
 // Work Information
@@ -78,6 +79,8 @@ export interface Work {
     endDate: string;   // ISO Date string
     status: string;
     description: string;
+    personalImportance: string;
+    satisfaction: string;
 }
 
 // Relationship Information
@@ -85,7 +88,6 @@ export interface Relationship {
     name: string;
     dateOfBirth: string;  // ISO Date string
     relationshipType: string;
-    wage: string;
     startDate: string;    // ISO Date string
     endDate: string;      // ISO Date string
     interactionFrequency: string;

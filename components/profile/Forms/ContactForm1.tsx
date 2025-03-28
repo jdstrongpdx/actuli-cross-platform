@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {ScrollView, StyleSheet, Text, Alert, View} from "react-native";
+import {ScrollView, StyleSheet, Text, Alert} from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AppUser, {Contact} from "@/interfaces/AppUser";
@@ -7,10 +7,8 @@ import {useTypeData} from "@/contexts/TypeDataContext";
 import TextInputField from "@/components/form/TextInputField";
 import SelectInputField from "@/components/form/SelectInputField";
 import {useAppUser} from "@/contexts/AppUserContext";
-import { produce } from "immer";
 import DateInputField from "@/components/form/DateInputField";
 import { Button} from '@rneui/themed';
-import TypeData from "@/interfaces/TypeData";
 import apiRequest from "@/utils/apiRequest";
 import {ApiMethods, ApiRoutes} from "@/enums/ApiEnums";
 import {useSession} from "@/contexts/AuthContext";
@@ -84,6 +82,7 @@ const ContactForm1: React.FC<ContactForm1Props> = ({ userData, onComplete }) => 
         try {
             const sanitizedData = replaceEmptyStringWithNull(values);
 
+            // Route accepts updated Contact and returns updated App User
             const updatedUser: AppUser = await apiRequest<Contact>(
                 ApiMethods.Put,
                 ApiRoutes.UpdateUserContact,
@@ -161,11 +160,11 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         backgroundColor: "rgba(78, 116, 289, 1)",
-        borderRadius: 3,
+        borderRadius: 5,
     },
     cancelButton: {
         backgroundColor: "#868686",
-        borderRadius: 3,
+        borderRadius: 5,
         marginTop: 10,
     },
 });

@@ -13,6 +13,7 @@ export enum ApiRoutes {
     UpdateUserContact = "/user/profile/contact",
     UpdateUserEducationList = "/user/profile/education",
     UpdateUserWorkList = "/user/profile/work",
+    UpdateUserRelationshipsList = "/user/profile/relationship",
     GetAllUsers = "/users",
     GetUserById = "/users/:id",
     UpdateUserById = "/users/:id",
